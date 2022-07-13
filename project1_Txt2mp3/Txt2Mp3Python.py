@@ -10,7 +10,7 @@ i = 0
 merge_file = list()
 # 一行一行地讀取Txt.txt，轉成 001.mp3 002.mp3 003.mp3 ...
 TxtFileName = 'Txt.txt'
-with open(TxtFileName) as f:
+with open(TxtFileName, encoding="utf-8") as f:
     for line in f.readlines():
         i = i+1
         myobj = gTTS(text=line, lang='zh', slow=False)
