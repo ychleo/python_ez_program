@@ -1,7 +1,20 @@
 import serial
 import threading
 import signal
+import serial.tools.list_ports
 
+ports = list(serial.tools.list_ports.comports())
+
+client_list: list = []
+
+COMPORT = ''
+for p in ports:
+    print(p)
+    if not str(p).count("CP210"):
+        continue
+    COMPORT = p.device
+
+print(COMPORT)
 
 exit_event = threading.Event()
 
@@ -43,7 +56,7 @@ def signal_handler(signum, frame):
 
 def start():
     signal.signal(signal.SIGINT, signal_handler)
-    ser = device_port('/dev/ttyUSB0', 38400)
+    ser = device_port(COMPORT, 38400)
 
 
 if __name__ != '__main__':

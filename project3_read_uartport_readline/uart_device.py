@@ -1,7 +1,20 @@
 import serial
 import threading
 import signal
+import serial.tools.list_ports
 
+ports = list(serial.tools.list_ports.comports())
+
+client_list: list = []
+
+COMPORT = ''
+for p in ports:
+    print(p)
+    if not str(p).count("CP210"):
+        continue
+    COMPORT = p.device
+
+print(COMPORT)
 
 exit_event = threading.Event()
 
